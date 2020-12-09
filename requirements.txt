@@ -1,0 +1,12 @@
+certifi==2020.12.5
+chardet==3.0.4
+click==7.1.2
+gTTS==2.2.1
+idna==2.10
+PyPDF2==1.26.0
+PyQt5==5.15.2
+PyQt5-sip==12.8.1
+PyQt5-stubs==5.14.2.2
+requests==2.25.0
+six==1.15.0
+urllib3==1.26.2
