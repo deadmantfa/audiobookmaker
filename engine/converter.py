@@ -1,8 +1,7 @@
 import PyPDF2
 from gtts import gTTS
-import Tkinter
 
-book = open('pdf/Business_Law_I_Essentials_-_WEB.pdf', 'rb')
+book = open('../pdf/Business_Law_I_Essentials_-_WEB.pdf', 'rb')
 pdfReader = PyPDF2.PdfFileReader(book)
 pages = pdfReader.numPages
 page = pdfReader.getPage(12)
