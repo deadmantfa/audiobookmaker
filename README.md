@@ -17,7 +17,6 @@ Create audiobooks by uploading PDF's
 ## Online version
 Waiting for an invite from Streamlit
 
-
 ## How to run
 `pip install -r requirements.txt`
 
