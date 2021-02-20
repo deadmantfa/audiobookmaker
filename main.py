@@ -42,14 +42,14 @@ def main():
         st.title('Audio Book Maker')
         uploaded_file = st.file_uploader("Upload a PDF", type=['pdf'])
         start_page = st.number_input("Start Page", 1)
-        end_page = st.number_input("End Page", 10)
+        end_page = st.number_input("End Page", 1)
         st.info('Conversion takes time, so please be patient')
         convert_to_audio = st.button('Convert')
+        pdf_document = None
         if uploaded_file is not None:
             read_file = uploaded_file.read()
             pdf_document = load_from_data(read_file)
         if convert_to_audio and uploaded_file is not None:
-            # pdf_reader = PyPDF2.PdfFileReader(io.BytesIO(read_file))
             audio_file = convert(pdf_document, start_page, end_page)
             if audio_file is not None:
                 st.audio(audio_file, format='audio/mp3')
