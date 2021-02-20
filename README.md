@@ -22,3 +22,4 @@ Waiting for an invite from Streamlit
 `pip install -r requirements.txt`
 
 `streamlit run main.py`
+
