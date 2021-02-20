@@ -4,7 +4,7 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/deadmantfa/audiobookmaker?style=for-the-badge)
 ![GitHub release (latest by SemVer)](https://img.shields.io/github/downloads/deadmantfa/audiobookmaker/latest/total?sort=semver&style=for-the-badge)
 ![Maintenance](https://img.shields.io/maintenance/yes/2021?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/deadmantfa/yii2-advanced-template-starter?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/deadmantfa/audiobookmaker?style=for-the-badge)
 
 Create audiobooks by uploading PDF's
 
