@@ -1,3 +1,4 @@
+[![AudioBook Maker](https://i.postimg.cc/RhQ4NRsf/logo-transparent.png)](https://postimg.cc/Cn1W2jVL)
 # AudioBook Maker
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/deadmantfa/audiobookmaker?style=for-the-badge)
