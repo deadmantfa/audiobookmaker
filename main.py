@@ -20,15 +20,9 @@ st.warning('Before switching pages be sure to download any converted pages or yo
 def convert(pdf_document, start, end):
     try:
         text = ''
-        start -= 1
-        end -= 1
-        if start == end:
-            page_current = pdf_document.create_page(start)
+        for x in range(start - 1, end):
+            page_current = pdf_document.create_page(x)
             text += page_current.text()
-        else:
-            for x in range(start, end):
-                page_current = pdf_document.create_page(x)
-                text += page_current.text()
         # initialize tts, create mp3 and play
         mp3_fp = io.BytesIO()
         tts = gTTS(text=text, lang='en', slow=False, lang_check=False)
