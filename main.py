@@ -8,25 +8,26 @@ from poppler import load_from_data, PageRenderer
 st.set_page_config(page_title='AudioBook Maker', page_icon='https://i.postimg.cc/mk0CgTnh/logo-transparent-200.png',
                    layout='wide', initial_sidebar_state='expanded')
 
-"""
-# Preview PDF
-"""
-st.warning('Before switching pages be sure to download any converted pages or you will need to reconvert')
+st.title('Audio Book Maker')
 st.header(
     "[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E226KBO)&nbsp;[![GitHub release ("
     "latest by date)](https://img.shields.io/github/v/release/deadmantfa/audiobookmaker?style=for-the-badge)]("
     "https://github.com/deadmantfa/audiobookmaker)")
+st.header('Preview Uploaded PDF')
+st.warning('Before switching pages be sure to download any converted pages or you will need to reconvert')
 
 
-def convert(pdf_reader, start, end):
+def convert(pdf_document, start, end):
     try:
         text = ''
+        start -= 1
+        end -= 1
         if start == end:
-            page_current = pdf_reader.create_page(start - 1)
+            page_current = pdf_document.create_page(start)
             text += page_current.text()
         else:
-            for x in range(start, end - 1):
-                page_current = pdf_reader.create_page(x)
+            for x in range(start, end):
+                page_current = pdf_document.create_page(x)
                 text += page_current.text()
         # initialize tts, create mp3 and play
         mp3_fp = io.BytesIO()
@@ -53,19 +54,15 @@ def render_page(file, page):
     return pil_image
 
 
-def preview(pdf_document, read_file):
-    if pdf_document is not None:
-        input_page = st.number_input('Page number', 1, step=2)
-        pdf_document = load_from_data(read_file)
-        col1, col2 = st.beta_columns(2)
-        col1.header(f"Page {input_page}")
-        col2.header(f"Page {input_page + 1}")
-        left_page = render_page(pdf_document, input_page)
-        right_page = render_page(pdf_document, input_page + 1)
-        col1.image(left_page, use_column_width=True)
-        col2.image(right_page, use_column_width=True)
-    else:
-        st.info('Upload a PDF to preview')
+def preview(pdf_document):
+    input_page = st.number_input('Page number', 1, step=2)
+    col1, col2 = st.beta_columns(2)
+    col1.header(f"Page {input_page}")
+    col2.header(f"Page {input_page + 1}")
+    left_page = render_page(pdf_document, input_page)
+    right_page = render_page(pdf_document, input_page + 1)
+    col1.image(left_page, use_column_width=True)
+    col2.image(right_page, use_column_width=True)
 
 
 def main():
@@ -77,8 +74,7 @@ def main():
         st.info('Conversion takes time, so please be patient')
         convert_to_audio = st.button('Convert')
         if uploaded_file is not None:
-            read_file = uploaded_file.read()
-            pdf_document = load_from_data(read_file)
+            pdf_document = load_from_data(uploaded_file.read())
         if start_page > end_page:
             st.error('Start Page cannot be greater than end page')
         elif start_page <= end_page:
@@ -87,7 +83,7 @@ def main():
                 st.audio(audio_file, format='audio/mp3')
 
     if uploaded_file is not None:
-        preview(pdf_document, read_file)
+        preview(pdf_document)
     else:
         st.info('Upload a PDF, check the sidebar on the left')
 
