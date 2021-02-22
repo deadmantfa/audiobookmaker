@@ -5,6 +5,13 @@ from PIL import Image
 from gtts import gTTS
 from poppler import load_from_data, PageRenderer
 
+st.set_page_config(page_title='AudioBook Maker', page_icon='https://i.postimg.cc/mk0CgTnh/logo-transparent-200.png',
+                   layout='wide', initial_sidebar_state='expanded')
+st.header(
+    "[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E226KBO)&nbsp;[![GitHub release ("
+    "latest by date)](https://img.shields.io/github/v/release/deadmantfa/audiobookmaker?style=for-the-badge)]("
+    "https://github.com/deadmantfa/audiobookmaker)")
+
 
 def convert(pdf_reader, start, end):
     try:
@@ -37,26 +44,10 @@ def render_page(file, page):
     return pil_image
 
 
-def main():
-    with st.sidebar:
-        st.title('Audio Book Maker')
-        uploaded_file = st.file_uploader("Upload a PDF", type=['pdf'])
-        start_page = st.number_input("Start Page", 1)
-        end_page = st.number_input("End Page", 1)
-        st.info('Conversion takes time, so please be patient')
-        convert_to_audio = st.button('Convert')
-        pdf_document = None
-        if uploaded_file is not None:
-            read_file = uploaded_file.read()
-            pdf_document = load_from_data(read_file)
-        if convert_to_audio and uploaded_file is not None:
-            audio_file = convert(pdf_document, start_page, end_page)
-            if audio_file is not None:
-                st.audio(audio_file, format='audio/mp3')
-
-    '''
+def preview(pdf_document, read_file):
+    """
     # Preview PDF
-    '''
+    """
     st.warning('Before switching pages be sure to download any converted pages or you will need to reconvert')
     if pdf_document is not None:
         input_page = st.number_input('Page number', 1, step=2)
@@ -70,6 +61,27 @@ def main():
         col2.image(right_page, use_column_width=True)
     else:
         st.info('Upload a PDF to preview')
+
+
+def main():
+    with st.sidebar:
+        st.title('Audio Book Maker')
+        uploaded_file = st.file_uploader("Upload a PDF", type=['pdf'])
+        start_page = st.number_input("Start Page", 1)
+        end_page = st.number_input("End Page", 1)
+        st.info('Conversion takes time, so please be patient')
+        convert_to_audio = st.button('Convert')
+        pdf_document = None
+        if uploaded_file is not None:
+            read_file = uploaded_file.read()
+            pdf_document = load_from_data(read_file)
+        if start_page > end_page:
+            st.error('Start Page cannot be greater than end page')
+        elif start_page <= end_page:
+            if convert_to_audio and uploaded_file is not None:
+                audio_file = convert(pdf_document, start_page, end_page)
+                st.audio(audio_file, format='audio/mp3')
+    preview(pdf_document, read_file)
 
 
 if __name__ == "__main__":
