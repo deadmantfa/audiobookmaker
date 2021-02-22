@@ -7,6 +7,11 @@ from poppler import load_from_data, PageRenderer
 
 st.set_page_config(page_title='AudioBook Maker', page_icon='https://i.postimg.cc/mk0CgTnh/logo-transparent-200.png',
                    layout='wide', initial_sidebar_state='expanded')
+
+"""
+# Preview PDF
+"""
+st.warning('Before switching pages be sure to download any converted pages or you will need to reconvert')
 st.header(
     "[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E226KBO)&nbsp;[![GitHub release ("
     "latest by date)](https://img.shields.io/github/v/release/deadmantfa/audiobookmaker?style=for-the-badge)]("
@@ -16,9 +21,13 @@ st.header(
 def convert(pdf_reader, start, end):
     try:
         text = ''
-        for x in range(start - 1, end - 1):
-            page_current = pdf_reader.create_page(x)
+        if start == end:
+            page_current = pdf_reader.create_page(start - 1)
             text += page_current.text()
+        else:
+            for x in range(start, end - 1):
+                page_current = pdf_reader.create_page(x)
+                text += page_current.text()
         # initialize tts, create mp3 and play
         mp3_fp = io.BytesIO()
         tts = gTTS(text=text, lang='en', slow=False, lang_check=False)
@@ -45,10 +54,6 @@ def render_page(file, page):
 
 
 def preview(pdf_document, read_file):
-    """
-    # Preview PDF
-    """
-    st.warning('Before switching pages be sure to download any converted pages or you will need to reconvert')
     if pdf_document is not None:
         input_page = st.number_input('Page number', 1, step=2)
         pdf_document = load_from_data(read_file)
@@ -83,6 +88,8 @@ def main():
 
     if uploaded_file is not None:
         preview(pdf_document, read_file)
+    else:
+        st.info('Upload a PDF, check the sidebar on the left')
 
 
 if __name__ == "__main__":
