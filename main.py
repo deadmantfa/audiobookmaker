@@ -71,7 +71,6 @@ def main():
         end_page = st.number_input("End Page", 1)
         st.info('Conversion takes time, so please be patient')
         convert_to_audio = st.button('Convert')
-        pdf_document = None
         if uploaded_file is not None:
             read_file = uploaded_file.read()
             pdf_document = load_from_data(read_file)
@@ -81,7 +80,9 @@ def main():
             if convert_to_audio and uploaded_file is not None:
                 audio_file = convert(pdf_document, start_page, end_page)
                 st.audio(audio_file, format='audio/mp3')
-    preview(pdf_document, read_file)
+
+    if uploaded_file is not None:
+        preview(pdf_document, read_file)
 
 
 if __name__ == "__main__":
