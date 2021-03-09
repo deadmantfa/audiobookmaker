@@ -1,1 +1,2 @@
 poppler-utils
+cmake
