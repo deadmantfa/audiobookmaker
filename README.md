@@ -19,10 +19,10 @@ Create audiobooks by uploading PDF's
 * [Pillow](https://python-pillow.org/)
 
 ## Online version
-Waiting for an invite from Streamlit
+https://share.streamlit.io/deadmantfa/audiobookmaker
 
 ## How to run
 `pip install -r requirements.txt`
 
-`streamlit run main.py`
+`streamlit run streamlit_app.py`
 
