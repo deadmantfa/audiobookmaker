@@ -1,4 +1,5 @@
-gTTS==2.2.2
-python_poppler==0.2.2
 streamlit==0.76.0
+python_poppler==0.2.2
+gTTS==2.2.2
 Pillow==8.1.2
+cmake
