@@ -25,7 +25,7 @@ def convert(pdf_document, start, end):
             text += page_current.text()
         # initialize tts, create mp3 and play
         mp3_fp = io.BytesIO()
-        tts = gTTS(text=text, lang='en', slow=False, lang_check=False)
+        tts = gTTS(text=text, lang='en', slow=False, lang_check=False, tld='co.in')
         tts.write_to_fp(mp3_fp)
         return mp3_fp
     except AssertionError:
