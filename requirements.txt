@@ -1,4 +1,3 @@
 streamlit==0.76.0
 Pillow==8.1.0
 gTTS==2.2.2
-python-poppler==0.2.2
