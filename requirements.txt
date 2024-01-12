@@ -1,4 +1,4 @@
-streamlit==1.11.1
+streamlit==1.30.0
 python_poppler==0.2.2
 gTTS==2.2.2
 Pillow==10.0.1
